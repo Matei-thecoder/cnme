@@ -1,11 +1,10 @@
 <template>
     <main class="signup-container">
       <form class="signup-form" @submit.prevent="handleSubmit">
-        <h2 class="signup-title">Creează un cont 📝</h2>
+        <h2 class="signup-title">Autentifică-te 📝</h2>
+        
         <h2 class="signup-title">Admin </h2>
-  
-        <label for="name">Nume complet</label>
-        <input type="text" id="name" v-model="name" placeholder="Nume complet" required />
+        
   
         <label for="email">Email</label>
         <input type="email" id="email" v-model="email"  placeholder="Email" />
@@ -13,13 +12,12 @@
         <label for="password">Parolă</label>
         <input type="password" id="password" v-model="password" placeholder="Parola" required />
   
-        <label for="confirm">Confirmă parola</label>
-        <input type="password" id="confirm" v-model="confirmPassword" placeholder="Confirma parola" />
+        
   
-        <button type="submit" class="submit-button">Creează contul</button>
+        <button type="submit" class="submit-button">Logheaza-te</button>
   
         <p class="login-link">
-          Ai deja cont? <router-link to="/admin/login">Autentifică-te</router-link>
+          Nu ai cont? <router-link to="/admin/signup">Creeaza unul</router-link>
         </p>
       </form>
     </main>
@@ -28,40 +26,15 @@
   <script setup>
   import { ref } from 'vue'
   
-  const name = ref('')
+  
   const email = ref('')
   const password = ref('')
-  const confirmPassword = ref('')
+ 
   
-  async function handleSubmit() {
-    if (password.value !== confirmPassword.value) {
-    alert('Parolele nu se potrivesc!')
-    return
-  }
-
-  try {
-    const response = await fetch('http://localhost:5000/api/signup', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name: name.value,
-        email: email.value,
-        password: password.value,
-      }),
-    })
-
-    const data = await response.json()
-
-    if (!response.ok) {
-      alert(data.message || 'Eroare la înregistrare')
-    } else {
-      alert('Cont creat cu succes! 🎉')
-      // optionally: redirect to login page
-    }
-  } catch (error) {
-    console.error(error)
-    alert('Eroare de rețea')
-  }
+  function handleSubmit() {
+    
+    // Send form data to backend or display success message
+    alert(`Cont creat pentru ${email.value}! 🥳`)
   }
   </script>
   
